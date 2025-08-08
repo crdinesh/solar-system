@@ -1,3 +1,4 @@
+
 name: solar system workflow
 
 on:
@@ -13,30 +14,66 @@ env:
 jobs:
     unit-testing:
         name: unit-testing
-        strategy:
-            matrix:
-                nodejs_version: [18,19,20]
-                operating_system: [ubuntu-latest, mcacos-latest] # Define operating systems
-                exclude:
-                  - nodejs_version: 18
-                    operating_system: macos-latest
-        runs-on: ${{matrix.operating_system}}
+        runs-on: ubuntu-latest
         steps:
         - name: checkout repository
           uses: actions/checkout@v4
 
-        - name : setup nodejs version ${{matrix.nodejs_version}}
+        - name : setup nodejs version 18
           uses: actions/setup-node@v3
           with:
-            node-version: '${{matrix.nodejs_version}}'
+            node-version: '18'
+        
         - name: Install dependencies
           run: npm install
         - name: Run tests
           run: npm test
-        - name: Archive Test result
-          uses: actions/upload-artifact@v4
-          with:
-            name: Dinesh-Test-Results
-            path: test-results.xml
+
+       
+
+
+
+
+#------------------------------------------------------------------ matrix strategy ------------------------------------------------------------------
+# name: solar system workflow
+
+# on:
+#     workflow_dispatch: 
+#     push:
+#         branches: 
+#             - main
+#             - 'feature/*'
+# env:
+#     MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
+#     MONGO_USERNAME: ${{vars.MONGO_USERNAME}}
+#     MONGO_PASSWORD: ${{secrets.MONGO_PASSWORD}}
+# jobs:
+#     unit-testing:
+#         name: unit-testing
+#         strategy:
+#             matrix:
+#                 nodejs_version: [18,19,20]
+#                 operating_system: [ubuntu-latest, mcacos-latest] # Define operating systems
+#                 exclude:
+#                   - nodejs_version: 18
+#                     operating_system: macos-latest
+#         runs-on: ${{matrix.operating_system}}
+#         steps:
+#         - name: checkout repository
+#           uses: actions/checkout@v4
+
+#         - name : setup nodejs version ${{matrix.nodejs_version}}
+#           uses: actions/setup-node@v3
+#           with:
+#             node-version: '${{matrix.nodejs_version}}'
+#         - name: Install dependencies
+#           run: npm install
+#         - name: Run tests
+#           run: npm test
+#         - name: Archive Test result
+#           uses: actions/upload-artifact@v4
+#           with:
+#             name: Dinesh-Test-Results
+#             path: test-results.xml
 
                 
