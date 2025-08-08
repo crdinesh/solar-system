@@ -25,10 +25,10 @@ jobs:
         - name: checkout repository
           uses: actions/checkout@v4
 
-        - name : setup nodejs version ${{matrix.operating_system}}
+        - name : setup nodejs version ${{matrix.nodejs_version}}
           uses: actions/setup-node@v3
           with:
-            node-version: '${{matrix.operating_system}}'
+            node-version: '${{matrix.nodejs_version}}'
         - name: Install dependencies
           run: npm install
         - name: Run tests
