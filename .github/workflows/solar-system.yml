@@ -81,7 +81,12 @@ jobs:
         - name: Docker Image Test
           run: |
             docker images
-            docker run --name solar-system-app -d -p 3000:3000 -e MONGO_URI=${{vars.MONGO_URI}} -e MONGO_USERNAME = ${{vars.MONGO_USERNAME}} -e MONGO_PASSWORD = ${{vars.MONGO_PASSWORD}} ${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{github.sha}}
+              docker run --name solar-system-app -d \
+                  -p 3000:3000 \
+                  -e MONGO_URI= 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
+                  -e MONGO_USERNAME = $MONGO_USERNAME \
+                  -e MONGO_PASSWORD = $MONGO_PASSWORD  \
+                  ${{ vars.DOCKERHUB_USERNAME }}/solar-system-app:${{github.sha}}
             export IP= $(docker inspect -f '{{range.Networksettings.Network}}{{.IPAddress}}{{end}}' solar-system-app)
             echo $IP
 
